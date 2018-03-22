@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
     }
   }
   size_t length = strlen(buf);
-  char* input = trits_from_trytes(buf, length);
+  signed char* input = trits_from_trytes(buf, length);
   int i = 0;
   for(i = 0; i < length * 3; i++ ) {
 	  switch(input[i]) {

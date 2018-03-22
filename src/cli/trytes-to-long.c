@@ -46,8 +46,8 @@ int main(int argc, char* argv[]) {
     }
   }
   size_t length = strlen(buf);
-  char* input = trits_from_trytes(buf, length);
-  char value = long_value(input, 0, length * 3);
+  signed char* input = trits_from_trytes(buf, length);
+  signed char value = long_value(input, 0, length * 3);
   fprintf(stdout, "%hhd", value);
   return 0;
 }

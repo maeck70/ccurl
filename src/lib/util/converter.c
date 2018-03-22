@@ -35,7 +35,7 @@ char TRYTE_TO_TRITS_MAPPINGS
 
 static const char* TRYTE_ALPHABET = TRYTE_STRING;
 
-char long_value(char* const trits, const int offset, const int size) {
+char long_value(signed char* const trits, const int offset, const int size) {
   int i;
 
   char value = 0;
@@ -45,7 +45,7 @@ char long_value(char* const trits, const int offset, const int size) {
   return value;
 }
 
-char* bytes_from_trits(char* const trits, const int offset, const int size) {
+char* bytes_from_trits(signed char* const trits, const int offset, const int size) {
   int i, j;
   int length =
       (size + NUMBER_OF_TRITS_IN_A_BYTE - 1) / NUMBER_OF_TRITS_IN_A_BYTE;
@@ -65,7 +65,7 @@ char* bytes_from_trits(char* const trits, const int offset, const int size) {
   return bytes;
 }
 
-void getTrits(const char* bytes, int bytelength, char* const trits,
+void getTrits(const char* bytes, int bytelength, signed char* const trits,
               int length) {
   int i;
 
@@ -88,9 +88,9 @@ void getTrits(const char* bytes, int bytelength, char* const trits,
   }
 }
 
-char* trits_from_trytes(const char* trytes, int length) {
+signed char* trits_from_trytes(const char* trytes, int length) {
   int i;
-  char* trits = malloc(length * NUMBER_OF_TRITS_IN_A_TRYTE * sizeof(char));
+  signed char* trits = malloc(length * NUMBER_OF_TRITS_IN_A_TRYTE * sizeof(char));
   for (i = 0; i < length; i++) {
     memcpy(trits + i * NUMBER_OF_TRITS_IN_A_TRYTE,
            TRYTE_TO_TRITS_MAPPINGS[strchr(TRYTE_ALPHABET, trytes[i]) -
@@ -101,11 +101,11 @@ char* trits_from_trytes(const char* trytes, int length) {
   return trits;
 }
 
-void copyTrits(char const value, char* const destination, const int offset,
+void copyTrits(signed char const value, signed char* const destination, const int offset,
                const int size) {
   int i;
 
-  char absoluteValue = value < 0 ? -value : value;
+  signed char absoluteValue = value < 0 ? -value : value;
   for (i = 0; i < size; i++) {
 
     int remainder = (int)(absoluteValue % RADIX);
@@ -125,7 +125,7 @@ void copyTrits(char const value, char* const destination, const int offset,
   }
 }
 
-char* trytes_from_trits(char* const trits, const int offset, const int size) {
+char* trytes_from_trits(signed char* const trits, const int offset, const int size) {
   int i;
   const int length =
       (size + NUMBER_OF_TRITS_IN_A_TRYTE - 1) / NUMBER_OF_TRITS_IN_A_TRYTE;
@@ -133,7 +133,7 @@ char* trytes_from_trits(char* const trits, const int offset, const int size) {
   trytes[length] = '\0';
 
   for (i = 0; i < length; i++) {
-    char j = trits[offset + i * 3] + trits[offset + i * 3 + 1] * 3 +
+    signed char j = trits[offset + i * 3] + trits[offset + i * 3 + 1] * 3 +
                trits[offset + i * 3 + 2] * 9;
     if (j < 0) {
       j += 27;
@@ -143,11 +143,11 @@ char* trytes_from_trits(char* const trits, const int offset, const int size) {
   return trytes;
 }
 
-char tryteValue(char* const trits, const int offset) {
+char tryteValue(signed char* const trits, const int offset) {
   return trits[offset] + trits[offset + 1] * 3 + trits[offset + 2] * 9;
 }
 
-static void increment(char* trits, int size) {
+static void increment(signed char* trits, int size) {
   int i;
   for (i = 0; i < size; i++) {
     if (++trits[i] > MAX_TRIT_VALUE) {
@@ -161,7 +161,7 @@ static void increment(char* trits, int size) {
 void init_converter (void) __attribute__ ((constructor));
 void init_converter() {
   int i;
-  char trits[NUMBER_OF_TRITS_IN_A_BYTE];
+  signed char trits[NUMBER_OF_TRITS_IN_A_BYTE];
   memset(trits, 0, NUMBER_OF_TRITS_IN_A_BYTE * sizeof(char));
   for (i = 0; i < HASH_LENGTH; i++) {
     memcpy(&(BYTE_TO_TRITS_MAPPINGS[i]), trits,

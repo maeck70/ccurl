@@ -19,7 +19,7 @@
 #define TRYTE_LENGTH 2673
 #define TRANSACTION_LENGTH TRYTE_LENGTH * 3
 typedef int64_t bc_trit_t;
-typedef char trit_t;
+typedef signed char trit_t;
 
 #ifndef DEBUG
 #define DEBUG

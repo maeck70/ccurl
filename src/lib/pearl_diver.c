@@ -19,7 +19,7 @@
 
 typedef struct {
   States* states;
-  char* trits;
+  signed char* trits;
   int min_weight_magnitude;
   int threadIndex;
   PearlDiver* ctx;
@@ -191,7 +191,7 @@ void* find_nonce(void* data) {
   int i, shift;
   bc_trit_t nonce_probe, nonce_output;
   PDThread* my_thread = (PDThread*)data;
-  char* trits = my_thread->trits;
+  signed char* trits = my_thread->trits;
 
   memset(midStateCopyLow, 0, STATE_LENGTH * sizeof(bc_trit_t));
   memset(midStateCopyHigh, 0, STATE_LENGTH * sizeof(bc_trit_t));

@@ -72,7 +72,7 @@ void init_curl(curl_t* ctx) {
   memset(ctx->state, 0, STATE_LENGTH * sizeof(char));
 }
 int i = 0;
-void absorb(curl_t* ctx, char* const trits, int length) {
+void absorb(curl_t* ctx, signed char* const trits, int length) {
   int offset = 0;
   do {
     memcpy(ctx->state, trits + offset,
@@ -82,11 +82,9 @@ void absorb(curl_t* ctx, char* const trits, int length) {
   } while ((length -= HASH_LENGTH) > 0);
 }
 
-void squeeze(curl_t* ctx, char* trits, int length) {
+void squeeze(curl_t* ctx, signed char* trits, int length) {
   int offset = 0;
   do {
-    // memcpy(trits+offset,  ctx->state, (length < HASH_LENGTH? length:
-    // HASH_LENGTH) * sizeof(char));
     memcpy(&(trits[offset]), ctx->state,
            (length < HASH_LENGTH ? length : HASH_LENGTH) * sizeof(char));
     transform(ctx);
@@ -96,11 +94,11 @@ void squeeze(curl_t* ctx, char* trits, int length) {
 
 void transform(curl_t* ctx) {
   int round, stateIndex;
-  char scratchpad[STATE_LENGTH];
+  signed char scratchpad[STATE_LENGTH];
   for (round = 0; round < NUMBER_OF_ROUNDS; round++) {
     memcpy(scratchpad, ctx->state, STATE_LENGTH * sizeof(char));
     for (stateIndex = 0; stateIndex < STATE_LENGTH; stateIndex++) {
-      ctx->state[stateIndex] = TRUTH_TABLE[scratchpad[INDEX[stateIndex]] +
+        ctx->state[stateIndex] = TRUTH_TABLE[scratchpad[INDEX[stateIndex]] +
                                            (scratchpad[INDEX[stateIndex+1]]<<2) +5 ];
     }
   }

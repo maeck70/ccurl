@@ -3,16 +3,16 @@
 
 #include "../hash.h"
 
-char long_value(char* const trits, const int offset, const int size);
-char charValue(char* const trits, const int offset, const int size);
-char* bytes_from_trits(char* const trits, const int offset, const int size);
-void getTrits(const char* bytes, int bytelength, char* const trits,
+char long_value(signed char* const trits, const int offset, const int size);
+char charValue(signed char* const trits, const int offset, const int size);
+char* bytes_from_trits(signed char* const trits, const int offset, const int size);
+void getTrits(const char* bytes, int bytelength, signed char* const trits,
               int length);
 int indexOf(char* values, char find);
-char* trits_from_trytes(const char* trytes, int length);
-void copyTrits(char const value, char* const destination, const int offset,
+signed char* trits_from_trytes(const char* trytes, int length);
+void copyTrits(signed char const value, signed char* const destination, const int offset,
                const int size);
-char* trytes_from_trits(char* const trits, const int offset, const int size);
-char tryteValue(char* const trits, const int offset);
+char* trytes_from_trits(signed char* const trits, const int offset, const int size);
+char tryteValue(signed char* const trits, const int offset);
 
 #endif
